@@ -1,0 +1,30 @@
+<p mat-dialog-title class="h1">New Ticket</p>
+<div mat-dialog-content class="container my-5">
+  <form class="d-flex flex-column" [formGroup]="form" novalidate>
+    <mat-form-field>
+      <mat-label>Ticket Type</mat-label>
+      <mat-select [formControl]="ticket_type" required>
+        <mat-option value="cash_in">Cash In</mat-option>
+        <mat-option value="cash_out">Cash Out</mat-option>
+      </mat-select>
+      <mat-error *ngIf="ticket_type?.invalid">
+        {{formClientErrorService.getErrorMessage('ticket_type', form)}}
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Amount</mat-label>
+      <input matInput [formControl]="amount" type="number" min="1" required />
+      <mat-error *ngIf="amount?.invalid">
+        {{formClientErrorService.getErrorMessage('amount', form)}}
+      </mat-error>
+    </mat-form-field>
+  </form>
+</div>
+<div mat-dialog-actions class="d-flex justify-content-between text-center">
+  <div class="col-4">
+    <button mat-stroked-button (click)="onNoClick()">Cancel</button>
+  </div>
+  <div class="col-4">
+    <button mat-flat-button color="accent" (click)="submit()">Submit</button>
+  </div>
+</div>

@@ -1,0 +1,74 @@
+<div *ngIf="invoice">
+  <div class="d-flex flex-wrap">
+    <div class="col-12 col-sm-6 text-center p-2" style="height: 100px">
+      <img src="../../../assets/img/med-logo-dark.svg" style="height: 100%" />
+    </div>
+    <div
+      class="col-12 col-sm-6 d-flex align-items-center justify-content-sm-start justify-content-center"
+    >
+      <p class="h2">{{'componentInvoiceInvoiceTitle'|_}}</p>
+    </div>
+  </div>
+  <div class="d-flex flex-wrap py-5">
+    <div
+      *ngFor="let item of info | keyvalue"
+      class="col-12 col-sm-6 d-flex flex-wrap my-2"
+    >
+      <div class="col-12 col-md-4 px-2">
+        <mat-card class="mat-card-basic h-100 rounded-0 p-2">
+          <mat-card-content>
+            <div class="d-flex">
+              <p class="small m-0">{{item.key}}</p>
+            </div>
+          </mat-card-content>
+        </mat-card>
+      </div>
+      <div class="col-12 col-md-8 px-2">
+        <mat-card class="h-100 rounded-0 p-2">
+          <mat-card-content>
+            <div class="d-flex">
+              <p class="small m-0 text-truncate">{{item.value}}</p>
+            </div>
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </div>
+  </div>
+  <div class="d-flex justify-content-center">
+    <table mat-table [dataSource]="invoice.invoice_items" class="w-100">
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef></th>
+        <td mat-cell *matCellDef="let element" class="p-0">
+          <div class="d-block">
+            <p class="small m-0">
+              <components-qty class="mx-1" [qty]="element.qty"></components-qty
+              >{{element.product.product_type.name}}
+            </p>
+          </div>
+        </td>
+        <td mat-footer-cell *matFooterCellDef>
+          <p class="m-0 fw-bold">{{'componentInvoiceTotal'|_}}</p>
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="price">
+        <th mat-header-cell *matHeaderCellDef class="text-start"></th>
+        <td mat-cell *matCellDef="let element" class="text-start">
+          <components-price
+            [price]="element.qty*element.product.product_type.price"
+            [animated]="true"
+          ></components-price>
+        </td>
+        <td mat-footer-cell *matFooterCellDef class="text-start">
+          <components-price
+            [price]="invoice.total_price"
+            [animated]="true"
+          ></components-price>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row;columns:displayedColumns;"></tr>
+      <tr mat-footer-row *matFooterRowDef="displayedColumns; sticky: true"></tr>
+    </table>
+  </div>
+</div>

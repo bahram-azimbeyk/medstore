@@ -1,0 +1,16 @@
+<mat-progress-bar
+  *ngIf="invoice === undefined"
+  mode="indeterminate"
+></mat-progress-bar>
+<div *ngIf="invoice===null" class="container mt-4">
+  <mat-card>
+    <mat-card-content>
+      <div>
+        <p class="h3 text-center">{{'pageinvoiceInvoicenotfound' | _}}</p>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>
+<div *ngIf="invoice" class="container py-5">
+  <components-invoice [invoice]="invoice"></components-invoice>
+</div>

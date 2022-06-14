@@ -1,0 +1,96 @@
+<mat-vertical-stepper [linear]="true" #stepper class>
+  <mat-step
+    *ngFor="let item of options | keyvalue"
+    [stepControl]="item.value.formGroup"
+    [editable]="false"
+  >
+    <form [formGroup]="item.value.formGroup">
+      <ng-template matStepLabel
+        ><snap class="mx-2 my-auto"> {{item.key}}: </snap>
+        <b class="strong">{{item.value.selectedItem}}</b></ng-template
+      >
+      <components-autocomplete
+        [option]="item"
+        [step]="step"
+      ></components-autocomplete>
+      <div>
+        <button
+          mat-button
+          matStepperNext
+          *ngIf="stepper.selectedIndex !== this.data[0].options.length"
+          [disabled]="item.value.selectedItem===null"
+          (click)="filter(item)"
+        >
+          {{'componentStepperForwardStep'|_}}</button
+        ><button
+          class="col"
+          *ngIf="stepper.selectedIndex>0"
+          mat-button
+          color="warn"
+          (click)="stepper.reset();reset()"
+        >
+          {{'componentStepperReset'|_}}
+        </button>
+      </div>
+    </form>
+  </mat-step>
+  <mat-step [stepControl]="qty" [editable]="false"
+    ><ng-template matStepLabel
+      ><span class="mx-2 my-auto"
+        >{{'componentStepperCount'|_}}</span
+      ></ng-template
+    >
+    <div class="d-flex flex-wrap">
+      <components-qty [control]="qty"></components-qty>
+      <components-price
+        *ngIf="data[0].product_type.price>0"
+        class="col-12 col-sm-6"
+        [price]="data[0].product_type.price * qty.value"
+        [discounted]="data[0].product_type.discounted * qty.value"
+        [animated]="true"
+      ></components-price>
+      <mat-form-field class="mx-auto" *ngIf="data[0].product_type.price > 0">
+        <mat-label>{{"description"|_}}</mat-label>
+        <!-- TODO add placeholder to input -->
+        <input matInput type="text" [formControl]="description" />
+        <mat-hint *ngIf="forceDescription" class="text-danger h6"
+          >{{'forceDescriptionDaddyChec'|_}}</mat-hint
+        >
+        <mat-hint *ngIf="!forceDescription"
+          >{{'pagePurchaseotherClientDescriptions'|_}}</mat-hint
+        >
+      </mat-form-field>
+    </div>
+    <div class="mt-3">
+      <button
+        *ngIf="data[0].product_type.price === -1"
+        class="col"
+        mat-flat-button
+        matStepperNext
+        (click)="onQuery()"
+        color="accent"
+      >
+        {{'componentStepperInquiryPrice'|_}}
+      </button>
+      <button
+        *ngIf="data[0].product_type.price > 0"
+        class="col"
+        mat-flat-button
+        matStepperNext
+        (click)="purchase()"
+        color="accent"
+      >
+        {{'componentStepperOrder'|_}}</button
+      ><button
+        class="col"
+        *ngIf="stepper.selectedIndex>0"
+        mat-button
+        matStepperNext
+        color="warn"
+        (click)="stepper.reset();reset()"
+      >
+        {{'componentStepperReset'|_}}
+      </button>
+    </div>
+  </mat-step>
+</mat-vertical-stepper>

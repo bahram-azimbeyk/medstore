@@ -1,0 +1,11 @@
+deploy:
+  variables:
+    GIT_STRATEGY: none
+    GIT_CHECKOUT: "false"
+  stage: deploy
+  script:
+    - cd /home/sesota/med-store-frontend/
+    - git pull
+    - ng build --prod
+    # - ng run medstore-front:app-shell -c production
+  tags: [test]

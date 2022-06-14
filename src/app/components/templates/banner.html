@@ -1,0 +1,8 @@
+<div *ngFor="let banner of banners">
+  <div style="height: {{banner.height}}">
+    <components-carousel
+      [data]="banner.banner_medias"
+      [title]="'cover'"
+    ></components-carousel>
+  </div>
+</div>

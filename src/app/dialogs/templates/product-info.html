@@ -1,0 +1,9 @@
+
+<div mat-dialog-content class="container my-3">
+  <p *ngFor="let msg of data.message">{{msg}}</p>
+</div>
+<div mat-dialog-actions class="d-flex justify-content-center text-center">
+    <button mat-flat-button color="accent" (click)="ok()">
+      {{'dialogOk'|_}}
+    </button>
+</div>

@@ -1,0 +1,84 @@
+<div class="container h-100">
+  <form
+    *ngIf="data"
+    class="h-100 d-flex flex-column justify-content-start"
+    [formGroup]="form"
+    novalidate
+  >
+    <p mat-dialog-title class="h3 text-right mb-5">
+      {{'dialogEditProfileTitle'|_}}
+    </p>
+    <mat-error *ngFor="let error of errors">{{error}}</mat-error>
+    <div class="d-flex flex-wrap justify-content-between">
+      <mat-form-field>
+        <mat-label>{{'dialogEditProfileName'|_}}</mat-label>
+        <input
+          matInput
+          formControlName="first_name"
+          type="text"
+          placeholder="{{'dialogEditProfileNameInputPlaceholder'|_}}"
+        /> </mat-form-field
+      ><mat-form-field>
+        <mat-label>{{'dialogEditProfileSurName'|_}}</mat-label>
+        <input
+          matInput
+          formControlName="last_name"
+          placeholder="{{'dialogEditProfileSurNamePlaceholder'|_}}"
+          type="text"
+        /> </mat-form-field
+      ><mat-form-field>
+        <mat-label>{{'dialogEditProfileEmail'|_}}</mat-label>
+        <input
+          matInput
+          formControlName="user"
+          type="email"
+          placeholder="{{'dialogEditProfileEmailPlaceholder'|_}}"
+          required
+        />
+        <mat-error *ngIf="user?.invalid">
+          {{formClientErrorService.getErrorMessage('user', form)}}
+        </mat-error> </mat-form-field
+      ><mat-form-field>
+        <mat-label>{{'dialogEditProfileMobileNumber'|_}}</mat-label>
+        <input
+          matInput
+          formControlName="mobile_number"
+          type="tel"
+          maxlength="11"
+          placeholder="{{'dialogEditProfileMobileNumberPlaceholder'|_:{zero:0|anp, mobileNumber:'9123456789'|anp} }}"
+        />
+        <mat-error *ngIf="mobile_number?.invalid">
+          {{formClientErrorService.getErrorMessage('mobile_number', form)}}
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>{{'dialogEditProfilePostalCode'|_}}</mat-label>
+        <input matInput formControlName="postal_code" type="text" />
+        <mat-error *ngIf="postal_code?.invalid">
+          {{formClientErrorService.getErrorMessage('postal_code', form)}}
+        </mat-error> </mat-form-field
+      ><mat-form-field>
+        <mat-label>{{'dialogEditProfileAddress'|_}}</mat-label>
+        <textarea matInput formControlName="address"></textarea>
+        <mat-error *ngIf="address?.invalid">
+          {{formClientErrorService.getErrorMessage('address', form)}}
+        </mat-error>
+      </mat-form-field>
+    </div>
+    <div
+      mat-dialog-actions
+      class="mt-auto d-flex justify-content-between text-center"
+    >
+      <div class="col-4">
+        <button mat-stroked-button (click)="onNoClick()">
+          {{'dialogEditProfileCancel'|_}}
+        </button>
+      </div>
+      <div class="col-4">
+        <button mat-flat-button color="accent" (click)="submit()">
+          {{'dialogEditProfileSubmit'|_}}
+        </button>
+      </div>
+    </div>
+  </form>
+</div>

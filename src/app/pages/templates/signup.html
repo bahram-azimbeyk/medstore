@@ -1,0 +1,73 @@
+<div class="container pt-5 d-flex justify-content-center">
+  <mat-card class="col-10 col-lg-7">
+    <div class="container d-flex justify-content-center">
+      <p *ngIf="is_loggedin">{{'alreadySignedin'|_}}</p>
+      <form
+        *ngIf="!is_loggedin"
+        class="d-flex flex-column mt-5 col-12"
+        [formGroup]="form"
+        (ngSubmit)="onSubmit()"
+        novalidate
+      >
+        <p class="h3 mb-3 text-center font-weight-normal">
+          {{'pageSignupSignupInMedstore'|_}}
+        </p>
+
+        <mat-error *ngFor="let error of errors">{{error}}</mat-error>
+
+        <mat-form-field class="my-2">
+          <mat-label>{{'email'|_}}</mat-label>
+          <input
+            matInput
+            formControlName="email"
+            placeholder="{{'emailPlaceholder'|_}}"
+            required="true"
+          />
+          <mat-error *ngIf="email?.invalid">
+            {{formClientErrorService.getErrorMessage('email',form)}}
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field class="my-2">
+          <mat-label>{{'password'|_}}</mat-label>
+          <input
+            matInput
+            type="password"
+            formControlName="password"
+            minlength="8"
+            required
+            autocomplete="new-password"
+          />
+          <mat-error *ngIf="password?.errors"
+            >{{formClientErrorService.getErrorMessage('password',
+            form)}}</mat-error
+          > </mat-form-field
+        ><mat-form-field class="my-2">
+          <mat-label>{{'passwordRepeat'|_}}</mat-label>
+          <input
+            matInput
+            type="password"
+            formControlName="repeat_password"
+            minlength="8"
+            autocomplete="new-password"
+            [errorStateMatcher]="matcher"
+            required
+          />
+          <mat-error *ngIf="repeat_password?.errors || form.hasError('notSame')"
+            >{{formClientErrorService.getErrorMessage('repeat_password',form)}}</mat-error
+          >
+        </mat-form-field>
+        <a class="mx-auto" routerLink="/signin"
+          >{{'pageSignupAlreadyHaveAcc'|_}}</a
+        >
+        <button
+          mat-flat-button
+          color="accent"
+          class="mt-4 col-3 mx-auto"
+          type="submit"
+        >
+          {{'signup'|_}}
+        </button>
+      </form>
+    </div>
+  </mat-card>
+</div>

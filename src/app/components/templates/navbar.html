@@ -1,0 +1,291 @@
+<style>
+  .category-toolbar {
+    height: 46px;
+  }
+  .sidenav-container {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+  }
+  mat-sidenav {
+    width: 95%;
+  }
+  mat-toolbar-row {
+    padding: 0.5rem;
+  }
+
+  .cate-link {
+    cursor: pointer;
+  }
+  .cate-dropdown {
+    display: flex;
+    visibility: hidden;
+    position: absolute;
+    opacity: 0;
+    min-height: 420px;
+    left: 0px;
+    right: 0px;
+    z-index: 1000;
+    transform: translateY(7px);
+    transition: all 0.1s ease;
+  }
+  .cate-dropdown-container:hover .cate-dropdown {
+    visibility: visible;
+    opacity: 1;
+  }
+</style>
+
+<mat-sidenav-container>
+  <mat-sidenav #snav mode="push" autoFocus="false" disableClose>
+    <ng-template [ngTemplateOutlet]="navbarItemsTemplate"> </ng-template>
+  </mat-sidenav>
+
+  <mat-sidenav-content>
+    <mat-toolbar
+      class="
+        toolbar-color
+        d-flex
+        justify-content-between
+        align-items-center
+        px-3
+      "
+    >
+      <mat-toolbar-row>
+        <button
+          *ngIf="mobileQuery.matches"
+          mat-icon-button
+          (click)="snav.toggle()"
+        >
+          <img class="mat-icon" src="../../../assets/icons/menu.svg" />
+        </button>
+        <ng-template
+          [ngTemplateOutlet]="navbarItemsTemplate"
+          *ngIf="!mobileQuery.matches"
+        >
+        </ng-template>
+        <span style="flex: 1 1 auto"></span>
+        <form class="pt-3" style="width: 40%" (ngSubmit)="submit()">
+          <mat-form-field
+            class="w-100"
+            appearance="outline"
+            style="font-size: x-small"
+          >
+            <mat-label>{{'componentNavbarSearch'|_}}</mat-label>
+            <img
+              matPrefix
+              class="mat-icon"
+              style="opacity: 0.54"
+              src="../../../assets/icons/search.svg"
+            />
+            <input
+              type="text"
+              aria-label="find-creators"
+              matInput
+              [formControl]="search"
+              autocomplete="off"
+            />
+          </mat-form-field>
+        </form>
+        <span style="flex: 1 1 auto"></span>
+        <span>
+          <a routerLink="/"
+            ><p class="mx-2 d-inline small">{{'compoenntNavbarBrand'|_}}</p>
+            <img src="../../../assets/img/med-logo-dark.svg" width="50px" /> </a
+        ></span>
+      </mat-toolbar-row>
+      <mat-toolbar-row
+        *ngIf="!mobileQuery.matches"
+        class="
+          category-toolbar
+          d-flex
+          px-auto
+          justify-content-center
+          align-items-center
+        "
+        [ngStyle]="{'direction': getDirection() === 'rtl'?'ltr':'rtl'}"
+      >
+        <div>
+          <a
+            *ngFor="let cate of categories.categories"
+            class="cate-link mx-2 mx-lg-3 h6"
+            [routerLink]="['/search']"
+            [queryParams]="{category: cate.name}"
+          >
+            <small>{{cate['name'|_:{}:true] || cate['name']}}</small>
+          </a>
+        </div>
+
+        <div
+          class="cate-dropdown-container mx-1"
+          *ngFor="let category of categories.sub_categories"
+          style="direction: {{getDirection()}}"
+        >
+          <a
+            class="cate-link mx-2 mx-lg-3 h6"
+            [routerLink]="['/search']"
+            [queryParams]="{category: category.name}"
+          >
+            <small>{{category['name'|_:{}:true] || category['name']}}</small>
+          </a>
+          <div class="cate-dropdown cate-dropdown-bg shadow row p-3 float-left">
+            <ng-template ngFor let-SubCate [ngForOf]="category.sub_categories">
+              <components-subcategory-list
+                *ngIf="SubCate.categories.length > 0 || SubCate.sub_categories.length > 0"
+                [subCategory]="SubCate"
+                [ngClass]="{'col-4': category.sub_categories.length > 2, 'col-6': category.sub_categories.length <= 2}"
+              ></components-subcategory-list>
+            </ng-template>
+          </div>
+        </div>
+      </mat-toolbar-row>
+    </mat-toolbar>
+    <div style="min-height: 400px">
+      <router-outlet></router-outlet>
+    </div>
+
+    <!-- FIXME -->
+    <!-- <div
+      class="loading-overlay"
+      *ngIf="loading"
+      class="d-flex flex-column justify-content-center align-items-center"
+      style="min-height: 400px"
+    > -->
+    <!-- show something fancy here, here with Angular 2 Material's loading bar or circle -->
+    <!-- <mat-spinner mode="indeterminate"></mat-spinner> -->
+    <!-- </div> -->
+
+    <components-footer></components-footer>
+  </mat-sidenav-content>
+</mat-sidenav-container>
+<ng-template #navbarItemsTemplate>
+  <div
+    class="d-flex justify-content-start h-100 px-2"
+    [ngClass]="{'flex-column py-4': mobileQuery.matches}"
+  >
+    <div *ngIf="mobileQuery.matches" class="d-flex justify-content-start">
+      <button mat-icon-button (click)="snav.toggle()">
+        <img class="mat-icon" src="../../../assets/icons/close.svg" />
+      </button>
+    </div>
+    <div class="d-flex align-items-center" *ngFor="let item of navbarItems">
+      <mat-divider
+        class="my-3"
+        *ngIf="item.type==='divider' && item.condition"
+      ></mat-divider>
+      <a
+        mat-icon-button
+        (click)="snav.close()"
+        [disableRipple]="true"
+        class="w-100 p-2"
+        color="link"
+        *ngIf="item.type === 'link' && item.condition"
+        [routerLink]="item.link"
+      >
+        <div class="d-flex justify-content-start align-items-center">
+          <mat-icon
+            *ngIf="item.badge"
+            matBadge="{{item.badge.value}}"
+            matBadgeColor="accent"
+            matBadgePosition="before"
+            matBadgeSize="small"
+            [matBadgeHidden]="!item.badge.condition"
+            style="font-size: x-large; width: fit-content"
+            >{{item.icon}}</mat-icon
+          >
+          <!-- <img
+            *ngIf="item.badge"
+            matBadge="{{item.badge.value}}"
+            matBadgeColor="accent"
+            matBadgePosition="before"
+            matBadgeSize="small"
+            [matBadgeHidden]="!item.badge.condition"
+            style="font-size: x-large; width: fit-content"
+            class="mat-icon"
+            src="../../../assets/icons/{{item.icon}}.svg"
+          /> -->
+          <img
+            *ngIf="!item.badge"
+            style="width: fit-content"
+            class="mat-icon"
+            src="../../../assets/icons/{{item.icon}}.svg"
+          />
+          <p
+            class="h6 mx-2 m-0 pt-1"
+            [ngClass]="mobileQuery.matches?'d-block':'d-none d-lg-block'"
+          >
+            {{item.name}}
+          </p>
+        </div>
+      </a>
+      <a
+        mat-icon-button
+        [disableRipple]="true"
+        class="w-100 p-2"
+        color="link"
+        *ngIf="item.type === 'menu' && item.condition"
+        [matMenuTriggerFor]="item.link"
+      >
+        <div class="d-flex justify-content-start align-items-center">
+          <img
+            class="mat-icon"
+            style="font-size: x-large; width: fit-content"
+            src="../../../assets/icons/{{item.icon}}.svg"
+          />
+          <p
+            class="h6 mx-2 m-0 pt-1"
+            [ngClass]="mobileQuery.matches?'d-block':'d-none d-lg-block'"
+          >
+            {{item.name}}
+          </p>
+        </div>
+      </a>
+    </div>
+
+    <!-- mobile drawer category expantion list -->
+    <!-- this div only is visible when mobileQuery matches -->
+    <div *ngIf="mobileQuery.matches" class="d-flex flex-column">
+      <p class="h5 text-center mb-1 mt-3">
+        {{'componentNavbarCategoryTitle'|_}}
+      </p>
+      <mat-divider></mat-divider>
+      <mat-accordion displayMode="flat">
+        <ng-template ngFor let-SubCate [ngForOf]="categories.sub_categories">
+          <components-subcategory-expantion-list
+            [subCategory]="SubCate"
+            (close)="snav.close()"
+          ></components-subcategory-expantion-list>
+        </ng-template>
+      </mat-accordion>
+    </div>
+  </div>
+</ng-template>
+<mat-menu #menu="matMenu" xPosition="after">
+  <a mat-menu-item routerLink="/profile/info" (click)="snav.close()">
+    <img class="mat-icon" src="../../../assets/icons/manage_accounts.svg" />
+    <span>{{'componentNavbarProfile'|_}}</span>
+  </a>
+  <button mat-menu-item (click)="logout()">
+    <img class="mat-icon" src="../../../assets/icons/logout.svg" />
+    <span>{{'componentNavbarLogoutAcc'|_}}</span>
+  </button>
+</mat-menu>
+<mat-menu #langMenu xPosition="after">
+  <a mat-menu-item (click)="snav.close(); setLanguageInLocalStorage('en');">
+    <img
+      src="../../../assets/img/flags/src_assets_img_flags_US.png"
+      alt="US Flag"
+      class="mx-1"
+    />
+    <span>English</span>
+  </a>
+  <a mat-menu-item (click)="snav.close(); setLanguageInLocalStorage('fa');">
+    <img
+      src="../../../assets/img/flags/src_assets_img_flags_IR.png"
+      alt="IR Flag"
+      class="mx-1"
+    />
+    <span>فارسی</span>
+  </a>
+</mat-menu>

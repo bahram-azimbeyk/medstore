@@ -1,0 +1,44 @@
+<style>
+  footer {
+    min-height: 300px;
+    background-color: rgb(255, 255, 255);
+    color: #222;
+    margin-top: 200px;
+  }
+  .map-img {
+    height: 200px;
+  }
+  .list-item {
+    font-size: 0.9rem;
+  }
+</style>
+<footer class="shadow">
+  <div class="container">
+    <div class="row p-4">
+      <div class="d-flex flex-column col-12 col-md">
+        <p class="h5">{{"componentFooterContantUsTitle" | _}}</p>
+        <mat-divider></mat-divider>
+        <p class="list-item">{{"componentFooterAddress"|_}}</p>
+        <p class="list-item">{{"componentFooterTelNumber"|_}}</p>
+      </div>
+      <div class="d-flex flex-column col-12 col-md">
+        <p class="h5">{{"map"|_}}</p>
+        <a href="https://goo.gl/maps/i3CNN77cSV8zWAcH7">
+          <img src="../../../assets/img/map.png" class="map-img" />
+        </a>
+      </div>
+    </div>
+  </div>
+  <mat-divider></mat-divider>
+  <div class="d-flex container py-3">
+    <a href="https://etcuniverse.com" class="col-6 col-md-3 h6 text-nowrap"
+      >Designed by ETC Dev Group</a
+    >
+    <div class="mx-auto"></div>
+    <img
+      src="../../../assets/img/namad.png"
+      alt="namad etemad electrinic"
+      style="height: 40px"
+    />
+  </div>
+</footer>

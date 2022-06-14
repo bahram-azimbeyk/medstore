@@ -1,0 +1,157 @@
+<div
+  *ngIf="prod_type && prods"
+  class="container py-3"
+  style="direction: {{getDirection()}}"
+>
+  <div class="d-flex flex-wrap align-items-start">
+    <div class="col-12">
+      <mat-card class="h-100">
+        <mat-card-header
+          class="d-flex my-4 justify-content-between align-content-center"
+        >
+          <mat-card-title>
+            <p class="h4 mt-2 text-wrap">{{prod_type['name'|_:{}:true]}}</p>
+            <p
+              *ngIf="getLanguageCode() === 'fa'"
+              class="h6 mt-2 text-muted text-wrap"
+            >
+              {{prod_type['name_en']}}
+            </p>
+          </mat-card-title>
+          <components-price
+            [price]="prod_type.price"
+            [discounted]="prod_type.discounted"
+          ></components-price>
+        </mat-card-header>
+        <div class="d-flex justify-content-center my-3">
+          <div class="col-12 col-sm-9" style="min-height: 300px">
+            <components-carousel
+              [height]="'60vh'"
+              [data]="prod_type.product_medias"
+              [isPreOrder]="prod_type.is_preorder"
+            ></components-carousel>
+          </div>
+        </div>
+        <ng-template [ngIf]="prod_type.product_catalogs.length > 0">
+          <mat-divider></mat-divider>
+          <div class="d-flex flex-column m-4 align-items-start">
+            <p class="h5">{{'pageProductdetailCatalog'|_}}</p>
+            <a
+              *ngFor="let catalog of prod_type.product_catalogs"
+              color="primary"
+              mat-button
+              style="direction: ltr"
+              href="{{mediaUrl+catalog}}"
+            >
+              <img
+                class="mat-icon"
+                src="../../../assets/icons/description.svg"
+              />
+              {{catalog.split('/').pop()}}
+            </a>
+          </div>
+          <mat-divider></mat-divider>
+        </ng-template>
+        <mat-card-content class="h-100">
+          <div class="container d-flex flex-column py-2">
+            <div>
+              <p class="h6">
+                <markdown ngPreserveWhitespaces
+                  >{{prod_type['description'|_:{}:true]}}</markdown
+                >
+              </p>
+            </div>
+
+            <div class="mt-auto">
+              <components-stepper
+                *ngIf="stepperControl && prods && !selected_prod"
+                (resetRequest)="onResetRequest()"
+                [data]="prods"
+                [selected_prod]="selected_prod"
+                [message]="prod_type.show_message? prod_type.message:''"
+                [forceDescription]="prod_type.id ==='bf2e96cc-b325-4a43-bddd-489895392874'? true: false"
+              ></components-stepper>
+            </div>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+
+  <div class="py-5 text-right col">
+    <mat-tab-group
+      style="min-height: 500px"
+      mat-stretch-tabs
+      mat-align-tabs="start"
+      animationDuration="0ms"
+      ><mat-tab label="{{'description'|_}}">
+        <mat-card class="my-5">
+          <mat-card-content>
+            <div>
+              <p class="h6">
+                <markdown ngPreserveWhitespaces
+                  >{{prod_type['details'|_:{}:true]}}</markdown
+                >
+              </p>
+              <div
+                *ngIf="prod_type.has_iso"
+                class="d-flex justify-content-end"
+                style="height: 80px"
+              >
+                <img class="mx-3" src="../../../assets/img/13485.svg" />
+                <img class="mx-3" src="../../../assets/img/imed.svg" />
+              </div>
+            </div>
+          </mat-card-content>
+        </mat-card>
+      </mat-tab>
+      <mat-tab label="{{'specification'|_}}">
+        <div
+          *ngFor="let item of prod_type['spec'|_:{}:true] "
+          class="d-flex flex-wrap py-2 justify-content-between"
+        >
+          <div class="col mx-md-3">
+            <mat-card class="h-100 py-2 mat-card-basic">
+              <mat-card-content>
+                <div class="d-flex">
+                  <p
+                    class="h6 bold m-0"
+                    [ngStyle]="{'text-align': getDirection() === 'rtl'?'right':'left'}"
+                    style="direction: ltr"
+                  >
+                    {{item.key}}
+                  </p>
+                </div>
+              </mat-card-content>
+            </mat-card>
+          </div>
+          <div class="col-12 col-md-8">
+            <mat-card class="h-100 py-2">
+              <mat-card-content>
+                <div class="d-flex">
+                  <p
+                    class="h6 m-0"
+                    [ngStyle]="{'text-align': getDirection() === 'rtl'?'right':'left'}"
+                    style="direction: ltr"
+                  >
+                    {{item.value}}
+                  </p>
+                </div>
+              </mat-card-content>
+            </mat-card>
+          </div>
+        </div>
+      </mat-tab>
+      <mat-tab label="{{'pageProductdetailCustomerscomments'|_}}">
+        <div class="py-4">
+          <components-comment [prod_id]="prod_id"></components-comment>
+        </div>
+      </mat-tab>
+    </mat-tab-group>
+    <components-product-slider
+      *ngIf="sibilingProdTypes.length > 0"
+      title="{{'otherProductsOfThisCategory'|_}}"
+      [prods]="sibilingProdTypes"
+    ></components-product-slider>
+  </div>
+</div>

@@ -1,0 +1,85 @@
+<style>
+  mat-card {
+    width: 250px;
+  }
+
+  .query-title-container {
+    min-height: 300px;
+  }
+</style>
+<div class="query-title-container py-3 mx-0 mx-lg-5">
+  <p class="h3 my-3">{{queryText}}</p>
+  <mat-card
+    *ngIf="alert_notfound && showError && prods.length === 0"
+    class="mx-auto"
+  >
+    <mat-card-content>
+      <div>
+        <p class="h3 text-center">{{'componentProductGrid'|_}}</p>
+      </div>
+    </mat-card-content>
+  </mat-card>
+
+  <ng-template [ngIf]="layout === 'HOME'">
+    <!-- <div class="d-flex flex-wrap">
+      <single-banner
+        class="col-12 col-lg-6 my-2"
+        [image]="'https://dkstatics-public.digikala.com/digikala-adservice-banners/feee1f29cc3312105554774892c75586f26996da_1624961607.jpg?x-oss-process=image/quality,q_80'"
+        [imageAlt]="'hello'"
+      ></single-banner>
+      <single-banner
+        class="col-12 col-lg-6 my-2"
+        [image]="'https://dkstatics-public.digikala.com/digikala-adservice-banners/feee1f29cc3312105554774892c75586f26996da_1624961607.jpg?x-oss-process=image/quality,q_80'"
+        [imageAlt]="'hello'"
+      ></single-banner>
+    </div>
+
+    <components-product-slider
+      [prods]="_filter(prods, {category:'ددی چک'})"
+      [title]="'daddy check'"
+    ></components-product-slider>
+    <div class="d-flex flex-wrap">
+      <single-banner
+        class="col-6 col-lg-3 my-2"
+        [image]="'https://dkstatics-public.digikala.com/digikala-adservice-banners/f80e1a870761766dcee5e2c4e5c15507a20c8dd2_1624695507.jpg?x-oss-process=image/quality,q_80'"
+        [imageAlt]="'hello'"
+      ></single-banner>
+      <single-banner
+        class="col-6 col-lg-3 my-2"
+        [image]="'https://dkstatics-public.digikala.com/digikala-adservice-banners/f80e1a870761766dcee5e2c4e5c15507a20c8dd2_1624695507.jpg?x-oss-process=image/quality,q_80'"
+        [imageAlt]="'hello'"
+      ></single-banner>
+      <single-banner
+        class="col-6 col-lg-3 my-2"
+        [image]="'https://dkstatics-public.digikala.com/digikala-adservice-banners/f80e1a870761766dcee5e2c4e5c15507a20c8dd2_1624695507.jpg?x-oss-process=image/quality,q_80'"
+        [imageAlt]="'hello'"
+      ></single-banner>
+      <single-banner
+        class="col-6 col-lg-3 my-2"
+        [image]="'https://dkstatics-public.digikala.com/digikala-adservice-banners/f80e1a870761766dcee5e2c4e5c15507a20c8dd2_1624695507.jpg?x-oss-process=image/quality,q_80'"
+        [imageAlt]="'hello'"
+      ></single-banner>
+    </div>
+
+    <components-product-grid
+      [prods]="_filter(prods, {category: 'تجهیزات'})"
+      [wrap]="true"
+    ></components-product-grid>
+    <div class="d-flex justify-content-center">
+      <a class="m-5" [routerLink]="['/search']" [queryParams]="{ name: '' }"
+        >{{"showAllProducts"|_}}</a
+      >
+    </div> -->
+    <components-product-grid
+      [prods]="_filter(prods)"
+      [wrap]="true"
+    ></components-product-grid>
+  </ng-template>
+
+  <ng-template [ngIf]="layout === 'SEARCH'">
+    <components-product-grid
+      [prods]="_filter(prods)"
+      [wrap]="true"
+    ></components-product-grid>
+  </ng-template>
+</div>

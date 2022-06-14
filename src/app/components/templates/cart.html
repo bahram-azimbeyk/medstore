@@ -1,0 +1,74 @@
+<div>
+  <div *ngIf="data.length===0" class="container mt-4">
+    <mat-card>
+      <mat-card-content>
+        <div>
+          <p class="h3 text-center">{{'pageCartCartEmpty'|_}}</p>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+  <div class="d-flex flex-column">
+    <div
+      *ngFor="let item of data; let i=index"
+      class="border-bottom p-2"
+      [style.backgroundColor]="item.error?'rgba(255,0,0,0.05)':'initial'"
+    >
+      <div class="d-flex flex-wrap justify-content-around">
+        <div class="col-12 col-sm-3 py-3">
+          <img
+            src="{{mediaUrl+item.prod.product_type.product_medias[0]}}"
+            class="rounded d-block w-100"
+            alt=""
+            style="object-fit: fit; filter: brightness(100%)"
+          />
+        </div>
+        <div
+          class="col-12 col-sm-9 d-flex flex-column justify-content-start p-3"
+        >
+          <div class="d-flex justify-content-between align-items-center">
+            <p class="h5 m-0">{{item.prod.product_type.name}}</p>
+            <button mat-icon-button (click)="deleteItem(i)">
+              <img class="mat-icon" src="../../../assets/icons/delete.svg" />
+            </button>
+          </div>
+          <div class="my-3">
+            <div *ngIf="item.error" class="d-flex">
+              <img
+                class="mat-icon"
+                src="../../../assets/icons/production_quantity_limits.svg"
+              />
+              <p class="text-danger">
+                {{"pageCartNotEnoughLeftovers" | _:{prodCount: item.prod.qty,
+                plurals: [0,1].includes(item.prod.qty)? "is": "are"} }}
+              </p>
+            </div>
+
+            <div *ngFor="let option of item.prod.options" class="d-flex">
+              <p>{{option.option_type}}:</p>
+              <p class="font-weight-bold mx-2">{{option.value}}</p>
+            </div>
+
+            <div class="d-flex">
+              <p>{{"description"|_}}<span>:</span></p>
+              <p>{{item.description}}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="d-flex justify-content-between flex-wrap mt-auto">
+        <components-qty
+          [control]="item.qtyControl"
+          (changes)="onQtyChanges(item)"
+        ></components-qty>
+        <div class="d-flex align-items-center px-2">
+          <components-price
+            class="col-12 col-sm-auto"
+            [price]="item.prod.product_type.price * item.qtyControl.value"
+            [animated]="true"
+          ></components-price>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

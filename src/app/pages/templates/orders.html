@@ -1,0 +1,90 @@
+<div class="container my-5">
+  <div class="py-2 d-flex justify-content-between">
+    <div class="mb-3">
+      <p class="h3 m-0">{{'pageOrderOrderTitle'|_}}</p>
+    </div>
+  </div>
+  <table mat-table [dataSource]="orders" class="w-100">
+    <ng-container matColumnDef="id">
+      <th mat-header-cell *matHeaderCellDef>
+        {{'pageOrderOrderidentification'|_}}
+      </th>
+      <td mat-cell *matCellDef="let element">{{element.tracking_number}}</td>
+    </ng-container>
+    <ng-container matColumnDef="date">
+      <th mat-header-cell *matHeaderCellDef>{{'date'|_}}</th>
+      <td mat-cell *matCellDef="let element">{{element.date_created}}</td>
+    </ng-container>
+    <ng-container matColumnDef="invoice">
+      <th mat-header-cell *matHeaderCellDef>{{'invoice'|_}}</th>
+      <td mat-cell *matCellDef="let element">
+        <a routerLink="/invoice/{{element.invoice}}">{{element.invoice}}</a>
+      </td>
+    </ng-container>
+    <ng-container matColumnDef="order_status">
+      <th mat-header-cell *matHeaderCellDef>{{'status'|_}}</th>
+      <td mat-cell *matCellDef="let element">
+        <button
+          *ngIf="element.order_status ==='cancelled'"
+          mat-button
+          class="price"
+          color="warn"
+          [disableRipple]="true"
+        >
+          <p class="h5 d-inline">{{'pageOrderFailedstatus'|_}}</p>
+        </button>
+        <button
+          *ngIf="element.order_status ==='waiting_for_check'"
+          mat-button
+          class="price"
+          color="basic"
+          [disableRipple]="true"
+        >
+          <p class="h5 d-inline">{{'pageOrderInqueuestatus'|_}}</p></button
+        ><button
+          *ngIf="element.order_status ==='checking'"
+          mat-button
+          class="price"
+          color="basic"
+          [disableRipple]="true"
+        >
+          <p class="h5 d-inline">
+            {{'pageOrderCheckingstatusstatus'|_}}
+          </p></button
+        ><button
+          *ngIf="element.order_status ==='waiting_for_call'"
+          mat-button
+          class="price"
+          color="basic"
+          [disableRipple]="true"
+        >
+          <p class="h5 d-inline">
+            {{'pageOrderWaitingforcallstatus'|_}}
+          </p></button
+        ><button
+          *ngIf="element.order_status ==='delivering'"
+          mat-button
+          class="price"
+          color="basic"
+          [disableRipple]="true"
+        >
+          <p class="h5 d-inline">{{'pageOrderSendingstatus'|_}}</p>
+        </button>
+        <button
+          *ngIf="element.order_status ==='delivered'"
+          mat-button
+          class="price"
+          color="basic"
+          [disableRipple]="true"
+        >
+          <p class="h5 d-inline">{{'pageOrderRecivedstatus'|_}}</p>
+        </button>
+      </td> </ng-container
+    ><ng-container matColumnDef="payment_status">
+      <th mat-header-cell *matHeaderCellDef>{{'status'|_}}</th>
+      <td mat-cell *matCellDef="let element"></td>
+    </ng-container>
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row;columns:displayedColumns;"></tr>
+  </table>
+</div>

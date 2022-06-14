@@ -1,0 +1,64 @@
+<p mat-dialog-title class="h3 text-right">{{'dialogQueryPriceTitle'|_}}</p>
+<div class="container mt-5">
+  <form *ngIf="form && data" [formGroup]="form" novalidate>
+    <mat-error *ngFor="let error of errors">{{error}}</mat-error>
+    <div class="d-flex flex-wrap justify-content-between">
+      <mat-form-field>
+        <mat-label>{{'dialogQueryPriceFullName'|_}}</mat-label>
+        <input
+          matInput
+          formControlName="name"
+          type="text"
+          placeholder="{{'dialogQueryPriceFullNamePlaceholder'|_}}"
+        /><mat-error *ngIf="name?.invalid">
+          {{formClientErrorService.getErrorMessage('name', form)}}
+        </mat-error> </mat-form-field
+      ><mat-form-field>
+        <mat-label>{{'dialogQueryPriceEmailPlaceholder'|_}}</mat-label>
+        <input
+          matInput
+          formControlName="email"
+          type="email"
+          placeholder="{{'dialogQueryPriceEmailPlaceholder'|_}}"
+          required
+        />
+        <mat-error *ngIf="email?.invalid">
+          {{formClientErrorService.getErrorMessage('email', form)}}
+        </mat-error> </mat-form-field
+      ><mat-form-field>
+        <mat-label>{{'dialogQueryPriceMobileNumber'|_}}</mat-label>
+        <input
+          matInput
+          formControlName="mobile_number"
+          type="tel"
+          maxlength="11"
+          placeholder="{{'dialogQueryPriceMobileNumberPlaceholder'|_:{zero: 0|anp, number:'9123456789'|anp} }}"
+          pattern="09\d{9}"
+          required
+        />
+        <mat-error *ngIf="mobile_number?.invalid">
+          {{formClientErrorService.getErrorMessage('mobile_number', form)}}
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>{{'dialogQueryPriceExpertise'|_}}</mat-label>
+        <input matInput formControlName="expertise" type="text" required />
+        <mat-error *ngIf="expertise?.invalid">
+          {{formClientErrorService.getErrorMessage('expertise', form)}}
+        </mat-error> </mat-form-field
+      ><components-qty [control]="qty"></components-qty>
+    </div>
+    <div mat-dialog-actions class="d-flex justify-content-between text-center">
+      <div class="col-4">
+        <button mat-stroked-button (click)="onNoClick()">
+          {{'dialogCancel'|_}}
+        </button>
+      </div>
+      <div class="col-4">
+        <button mat-flat-button color="accent" (click)="submit()">
+          {{'dialogOk'|_}}
+        </button>
+      </div>
+    </div>
+  </form>
+</div>

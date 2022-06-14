@@ -1,0 +1,150 @@
+<style>
+  .nav-btn {
+    height: 38px;
+    min-width: 38px !important;
+    width: 38px;
+    text-align: center;
+    padding: 0;
+    border-radius: 0;
+    position: absolute;
+    bottom: 20px;
+  }
+
+  .nav-back {
+    right: 100px;
+  }
+
+  .nav-forward {
+    right: 60px;
+  }
+
+  p {
+    text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.4);
+  }
+
+  .img-container {
+    position: relative;
+  }
+
+  .img-link {
+    border-radius: 0;
+  }
+
+  .onbanner-container {
+    position: absolute;
+    color: rgb(255, 255, 255);
+    border-radius: 12px;
+    top: 100px;
+    bottom: 100px;
+    left: 90px;
+    right: 90px;
+    z-index: 200;
+  }
+</style>
+<div
+  id="carouselIndicators"
+  class="carousel carousel-dark slide h-100 rounded"
+  data-bs-ride="carousel"
+  style="direction: ltr"
+>
+  <ol *ngIf="data.length > 1" class="carousel-indicators">
+    <li
+      *ngFor="let url of data; let i=index"
+      data-bs-target="#carouselIndicators"
+      attr.data-bs-slide-to="{{i}}"
+      [class.active]="i===0"
+    ></li>
+  </ol>
+  <img
+    *ngIf="isPreOrder"
+    src="../../../assets/img/preorder-{{getLanguageCode()}}.svg"
+    alt=""
+    class="preorder-detailed"
+  />
+  <div class="carousel-inner h-100">
+    <div
+      *ngFor="let media of data; let i = index"
+      class="img-container carousel-item h-100"
+      [class.active]="i===0"
+    >
+      <img
+        src="{{getImgUrl(media)}}"
+        class="rounded d-block w-100 h-100"
+        alt=""
+        [style.maxHeight]="height"
+        [style.objectFit]="title?'cover':'contain'"
+      />
+      <div class="onbanner-container d-flex flex-column align-items-center p-3">
+        <!-- Title -->
+        <div
+          *ngIf="media['title'|_:{}:true]"
+          class="d-flex flex-column align-items-center mb-3"
+        >
+          <p class="text-center h1 bold">{{media['title' | _:{}:true]}}</p>
+          <div
+            class="mt-3"
+            style="width: 50px; border: 2px solid #fad018"
+          ></div>
+        </div>
+
+        <!-- Sub Title -->
+        <p *ngIf="media['sub_title'|_:{}:true]" class="text-center h4">
+          {{media['sub_title' | _:{}:true]}}
+        </p>
+
+        <!-- Link Button -->
+        <a
+          mat-button
+          *ngIf="media['link']"
+          class="img-link mt-auto kazayi-yellow"
+          style="font-size: 1em"
+          href="{{media.link}}"
+        >
+          {{media['link_title'|_:{}:true]}}
+        </a>
+      </div>
+    </div>
+    <div
+      *ngIf="data.length===0"
+      class="carousel-item h-100 d-flex justify-content-center"
+      [class.active]="true"
+    >
+      <img
+        src="../../../assets/img/default-placeholder.png"
+        class="rounded d-block w-100 h-100"
+        style="max-width: 400px"
+        alt=""
+        [style.objectFit]="'cover'"
+      />
+    </div>
+  </div>
+  <a
+    *ngIf="data.length > 1 && !mobileQuery.matches"
+    href="#carouselIndicators"
+    role="button"
+    data-bs-slide="next"
+  >
+    <button mat-flat-button class="nav-btn nav-forward kazayi-yellow">
+      <img class="mat-icon" src="../../../assets/icons/navigate_next.svg" />
+    </button>
+  </a>
+  <a
+    *ngIf="data.length > 1 && !mobileQuery.matches"
+    href="#carouselIndicators"
+    role="button"
+    data-bs-slide="prev"
+  >
+    <button mat-flat-button class="nav-btn nav-back kazayi-yellow">
+      <img class="mat-icon" src="../../../assets/icons/navigate_before.svg" />
+    </button>
+  </a>
+
+  <div
+    class="carousel-caption d-flex flex-column align-items-center"
+    style="top: 10px; text-shadow: 5px"
+  >
+    <!-- <p class="display-4">{{title}}</p> -->
+    <!-- <div class="my-3" style="width: 50px; border: 2px solid #ffeb3b"></div> -->
+    <!-- <p class="display-6">{{subtitle}}</p> -->
+  </div>
+</div>

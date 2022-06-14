@@ -1,0 +1,32 @@
+<div class="d-flex flex-column my-2 default-bg">
+  <a
+    class="h5 text-wrap cate-dropdown-bg"
+    [routerLink]="['/search']"
+    [queryParams]="{category: subCategory.name}"
+  >
+    {{subCategory['name'|_:{}:true] || subCategory['name']}}
+  </a>
+  <mat-divider></mat-divider>
+  <div class="row my-2">
+    <div
+      class="col-6 d-flex align-items-center"
+      *ngFor="let cate of subCategory.categories"
+    >
+      <a
+        class="text-wrap h6 p-1"
+        [routerLink]="['/search']"
+        [queryParams]="{category: cate.name}"
+        [ngStyle]="{'text-align': getDirection() === 'rtl'?'right':'left'}"
+        style="direction: ltr"
+        >{{cate['name'|_:{}:true] || cate['name']}}</a
+      >
+    </div>
+  </div>
+  <!-- Fix this part for recursive sub category calls -->
+  <ng-template ngFor let-SubCate [ngForOf]="subCategory.sub_categories">
+    <components-subcategory-list
+      *ngIf="SubCate.categories.length > 0 || SubCate.sub_categories.length > 0"
+      [subCategory]="SubCate"
+    ></components-subcategory-list>
+  </ng-template>
+</div>

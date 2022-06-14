@@ -1,0 +1,160 @@
+<style>
+  .square-img-container {
+    width: 195px;
+    height: 195px;
+  }
+  .preorder {
+    position: absolute;
+    z-index: 1;
+    height: 12%;
+    right: 10px;
+    top: 10px;
+  }
+  .prod-img {
+    max-width: 100%;
+  }
+
+  .flat-card {
+    position: relative;
+    border-radius: 5px;
+    transition: 0.1s all ease-in-out;
+    box-shadow: 0px 0px 1px rgba(84, 84, 84, 0.46);
+  }
+
+  .flat-card:hover {
+    box-shadow: 0px 0px 3px rgba(84, 84, 84, 0.46);
+    transform: translateY(-3px);
+  }
+
+  .slider-container {
+    position: relative;
+    min-height: 430px;
+    background-color: #fff;
+    border-radius: 5px;
+  }
+
+  .slider {
+    transition: 0.5s transform ease-in-out;
+  }
+
+  button {
+    position: absolute;
+    top: 50%;
+    z-index: 200;
+    transform: translateY(-50%);
+    height: 100px;
+    background-color: rgba(216, 216, 216, 0.207);
+  }
+
+  .left {
+    left: 0;
+    border-radius: 0px 12px 12px 0px;
+  }
+  .right {
+    right: 0;
+    border-radius: 12px 0px 0px 12px;
+  }
+
+  .cursor-pointer {
+    cursor: pointer;
+  }
+</style>
+<!-- slider container -->
+<div
+  class="slider-container d-flex flex-column my-4 shadow overflow-hidden"
+  #container
+>
+  <!-- slider and slider title container -->
+  <div class="d-flex justify-content-evenly align-items-stretch mt-4 mb-1">
+    <!-- slider title -->
+    <p
+      class="h5 border-bottom border-info mx-3 mb-0 pb-1"
+      style="padding-left: 20px"
+    >
+      {{title}}
+    </p>
+    <div class="flex-fill border-bottom border-secondary mx-2"></div>
+  </div>
+  <!-- slider back and forward buttons -->
+  <button
+    mat-icon-button
+    (click)="slideToRight( container.offsetWidth, slider.scrollWidth)"
+    [ngClass]="{'right':getDirection()==='rtl','left':getDirection()==='ltr'}"
+    [disabled]="backDisabled"
+  >
+    <img
+      class="mat-icon"
+      src="../../../assets/icons/{{getDirection()==='rtl'?'arrow_forward_ios':'arrow_back_ios'}}.svg"
+    />
+  </button>
+  <button
+    mat-icon-button
+    (click)="slideToLeft( container.offsetWidth, slider.scrollWidth)"
+    [ngClass]="{'left':getDirection()==='rtl','right':getDirection()==='ltr'}"
+    [disabled]="frontDisabled"
+  >
+    <img
+      class="mat-icon"
+      src="../../../assets/icons/{{getDirection()==='rtl'?'arrow_back_ios':'arrow_forward_ios'}}.svg"
+    />
+  </button>
+
+  <!-- slider itself -->
+  <div
+    class="slider d-flex flex-fill align-items-stretch"
+    style="transform: translateX({{sliderTranslateXStyle}}%)"
+    #slider
+  >
+    <div
+      *ngFor="let prod of prods"
+      class="col-lg-3 col-md-4 col-sm-6 col-12 my-2 px-3 py-1"
+    >
+      <div
+        class="
+          flat-card
+          d-flex
+          flex-column
+          justify-content-evenly
+          align-items-center
+          h-100
+          cursor-pointer
+        "
+        (click)="showProduct(prod.id)"
+      >
+        <img
+          *ngIf="!!prod.is_preorder"
+          src="../../../assets/img/preorder-{{getLanguageCode()}}.svg"
+          alt=""
+          class="preorder"
+        />
+        <div
+          class="
+            d-flex
+            justify-content-center
+            align-items-center
+            square-img-container
+          "
+        >
+          <img
+            (click)="showProduct(prod.id)"
+            src="{{mediaUrl+prod.pic}}"
+            alt=""
+            class="prod-img"
+            [style.objectFit]="prod.pic.indexOf('notfound')!==-1?'cover':'contain'"
+          />
+        </div>
+        <p class="h5 m-0 text-center">{{prod['name'|_:{}:true]}}</p>
+        <p
+          *ngIf="getLanguageCode() === 'fa'"
+          class="m-0 text-center text-muted"
+        >
+          {{prod['name_en']}}
+        </p>
+        <components-price
+          [price]="prod.price"
+          (click)="showProduct(prod.id)"
+        ></components-price>
+      </div>
+    </div>
+  </div>
+</div>

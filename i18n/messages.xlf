@@ -1,0 +1,278 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+  <file source-language="fa-IR" datatype="plaintext" original="ng2.template">
+    <body>
+      <trans-unit id="page_404notfound_title" datatype="html">
+        <source> صفحه ی مورد نظر شما وجود ندارد </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/templates/404.html</context>
+          <context context-type="linenumber">9,10</context>
+        </context-group>
+        <note priority="1" from="description">page not found title</note>
+        <note priority="1" from="meaning">404 page</note>
+      </trans-unit>
+      <trans-unit id="page_forgotpassword_alreadyloggedin" datatype="html">
+        <source> شما در حال حاضر وارد سیستم شده اید </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/templates/forgot-password.html</context>
+          <context context-type="linenumber">6,7</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="page_forgotpassword_emailstep" datatype="html">
+        <source> ورود ایمیل </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/templates/forgot-password.html</context>
+          <context context-type="linenumber">20,21</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="page_fotgotpassword_title" datatype="html">
+        <source> بازیابی رمز عبور </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/templates/forgot-password.html</context>
+          <context context-type="linenumber">33,34</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="page_forgotpassword_emailinput" datatype="html">
+        <source>ایمیل</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/templates/forgot-password.html</context>
+          <context context-type="linenumber">39</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="pageforgotpassword_emailplaceholder" datatype="html">
+        <source>مثلا john_doe@company.com</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/templates/forgot-password.html</context>
+          <context context-type="linenumber">44</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="page_forgotpassword_newpasswordinput" datatype="html">
+        <source>رمز عبور جدید</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/templates/forgot-password.html</context>
+          <context context-type="linenumber">54</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="page_forgotpassword_newpasswordrepeat" datatype="html">
+        <source>تکرار رمز جدید</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/templates/forgot-password.html</context>
+          <context context-type="linenumber">70</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="page_forgotpassword_validationcodechoiceinput" datatype="html">
+        <source>نحوه ارسال کد تایید<x id="START_TAG_SPAN" ctype="x-span" equiv-text="&lt;span&gt;"/>:<x id="CLOSE_TAG_SPAN" ctype="x-span" equiv-text="&lt;/span&gt;"/></source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/templates/forgot-password.html</context>
+          <context context-type="linenumber">94</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="page_forgotpassword_emailchoice" datatype="html">
+        <source>از طریق ایمیل</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/templates/forgot-password.html</context>
+          <context context-type="linenumber">100</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="page_forgotpassword_smschoice" datatype="html">
+        <source>از طریق پیامک</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/templates/forgot-password.html</context>
+          <context context-type="linenumber">106</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="cancel" datatype="html">
+        <source> انصراف </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/templates/forgot-password.html</context>
+          <context context-type="linenumber">111</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="submit" datatype="html">
+        <source> ثبت </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/templates/forgot-password.html</context>
+          <context context-type="linenumber">118,119</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="page_forgotpassword_validationcodeinput" datatype="html">
+        <source> ورود کد </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/templates/forgot-password.html</context>
+          <context context-type="linenumber">128,129</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/templates/forgot-password.html</context>
+          <context context-type="linenumber">141,142</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8152f7276a7e7764430fc852120dc5f5b2ae846b" datatype="html">
+        <source>کد</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/templates/forgot-password.html</context>
+          <context context-type="linenumber">146</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="17dcc6c3174bbe974288b4a7a4fcc663740ff7d5" datatype="html">
+        <source> مرحله قبل </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/templates/forgot-password.html</context>
+          <context context-type="linenumber">168,169</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="homepage.products" datatype="html">
+        <source>محصولات</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/templates/home.html</context>
+          <context context-type="linenumber">5</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="pageinvoice_invoicenotfound" datatype="html">
+        <source> پیش فاکتور مورد نظر وجود ندارد </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/templates/invoice.html</context>
+          <context context-type="linenumber">10,11</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="pageorder_ordertitle" datatype="html">
+        <source>سفارش ها</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/templates/orders.html</context>
+          <context context-type="linenumber">4</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="pageinvoice_orderidentification" datatype="html">
+        <source> شناسه سفارش </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/templates/orders.html</context>
+          <context context-type="linenumber">14,15</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="date" datatype="html">
+        <source>تاریخ</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/templates/orders.html</context>
+          <context context-type="linenumber">21</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="invoice" datatype="html">
+        <source>پیش فاکتور</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/templates/orders.html</context>
+          <context context-type="linenumber">25</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="status" datatype="html">
+        <source>وضعیت</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/templates/orders.html</context>
+          <context context-type="linenumber">31</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/templates/orders.html</context>
+          <context context-type="linenumber">96</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="pageorder_failedstatus" datatype="html">
+        <source>لغو شده</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/templates/orders.html</context>
+          <context context-type="linenumber">40</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="pageorder_inqueuestatus" datatype="html">
+        <source> در انتظار بررسی </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/templates/orders.html</context>
+          <context context-type="linenumber">50,51</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="pageorder_checkingstatusstatus" datatype="html">
+        <source> در حال بررسی </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/templates/orders.html</context>
+          <context context-type="linenumber">60,61</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="pageorder_waitingforcallstatus" datatype="html">
+        <source> در انتظار تماس </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/templates/orders.html</context>
+          <context context-type="linenumber">70,71</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="pageorder_sendingstatus" datatype="html">
+        <source> در حال ارسال </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/templates/orders.html</context>
+          <context context-type="linenumber">80,81</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="bde13fe3d14271b49aaf320277aa816d216014ad" datatype="html">
+        <source> تحویل داده شده </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/templates/orders.html</context>
+          <context context-type="linenumber">91,92</context>
+        </context-group>
+        <note priority="1" from="description">pageorder_recivedstatus</note>
+      </trans-unit>
+      <trans-unit id="description" datatype="html">
+        <source>توضیحات</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/templates/product-detail.html</context>
+          <context context-type="linenumber">53</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="specification" datatype="html">
+        <source>مشخصات</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/templates/product-detail.html</context>
+          <context context-type="linenumber">64</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="pageorder_customerscomments" datatype="html">
+        <source>دیدگاه کاربران</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/templates/product-detail.html</context>
+          <context context-type="linenumber">91</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="pageprofile_personalinfotitle" datatype="html">
+        <source> اطلاعات شخصی </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/templates/profile.html</context>
+          <context context-type="linenumber">14,15</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="pageprofile_fullnamelbl" datatype="html">
+        <source> نام و نام خانوادگی </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/templates/profile.html</context>
+          <context context-type="linenumber">29,30</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="pageprofile_fullname" datatype="html">
+        <source> <x id="INTERPOLATION" equiv-text="{{data.first_name || data.last_name ? (data.first_name + &apos; &apos; +
+                data.last_name):&apos;خالی&apos;}}"/> </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/templates/profile.html</context>
+          <context context-type="linenumber">31,34</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="pageprofile_emaillbl" datatype="html">
+        <source> ایمیل </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/templates/profile.html</context>
+          <context context-type="linenumber">40,41</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="pageprofile_email" datatype="html">
+        <source> <x id="INTERPOLATION" equiv-text="{{data.user || &apos;خالی&apos;}}"/> </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/templates/profile.html</context>
+          <context context-type="linenumber">49,51</context>
+        </context-group>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

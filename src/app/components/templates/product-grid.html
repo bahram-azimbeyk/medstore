@@ -1,0 +1,79 @@
+<style>
+  .preorder {
+    position: absolute;
+    z-index: 1;
+    height: 15%;
+    right: 0px;
+    top: 0px;
+  }
+  .img-container {
+    position: relative;
+    width: 230px;
+    height: 230px;
+    margin: 0px 2px;
+    overflow: hidden;
+  }
+  .prod-img {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    max-width: 100%;
+    transition: 0.5s all ease-out;
+  }
+  .prod-img:hover {
+    transform: scale(1.1);
+  }
+  mat-card {
+    width: 250px;
+  }
+  .query-title-container {
+    min-height: 300px;
+  }
+</style>
+<div
+  class="d-flex justify-content-center"
+  [ngClass]="wrap?'flex-wrap':'flex-nowrap'"
+>
+  <mat-card
+    *ngFor="let prod of prods"
+    class="d-flex flex-column justify-content-stretch shadow px-2 mx-2 my-2"
+    style="cursor: pointer"
+  >
+    <mat-card-content class="d-flex flex-column align-items-center px-2">
+      <div class="img-container">
+        <img
+          *ngIf="!!prod.is_preorder"
+          src="../../../assets/img/preorder-{{getLanguageCode()}}.svg"
+          alt=""
+          class="preorder"
+        />
+        <img
+          (click)="showProduct(prod.id)"
+          src="{{mediaUrl+prod.pic}}"
+          alt=""
+          [style.objectFit]="prod.pic.indexOf('notfound')!==-1?'cover':'contain'"
+          class="prod-img"
+        />
+      </div>
+
+      <p class="h6 text-center" (click)="showProduct(prod.id)">
+        {{prod["name" | _:{}:true]}}
+      </p>
+      <p
+        *ngIf="getLanguageCode() === 'fa'"
+        class="text-center text-muted"
+        style="font-size: 0.9em"
+        (click)="showProduct(prod.id)"
+      >
+        {{prod["name_en"]}}
+      </p>
+    </mat-card-content>
+    <div class="d-flex justify-content-center mt-auto mb-2">
+      <components-price
+        [price]="prod.price"
+        [discounted]="prod.discounted"
+        (click)="showProduct(prod.id)"
+      ></components-price>
+    </div>
+  </mat-card>
+</div>

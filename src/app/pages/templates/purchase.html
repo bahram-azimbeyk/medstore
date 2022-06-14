@@ -1,0 +1,78 @@
+<div *ngIf="data===null || (data && data.length === 0)" class="container mt-4">
+  <mat-card>
+    <mat-card-content>
+      <div>
+        <p class="h3 text-center">{{'pageCartCartEmpty'|_}}</p>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>
+<mat-progress-bar
+  *ngIf="data === undefined"
+  mode="indeterminate"
+></mat-progress-bar>
+<div *ngIf="data && data.length > 0" class="container py-4">
+  <mat-horizontal-stepper [linear]="true" #stepper>
+    <mat-step>
+      <ng-template
+        *ngIf="stepper.selectedIndex == 0"
+        matStepLabel
+        class="text-wrap"
+        ><p class="small m-0">{{'cart'|_}}</p></ng-template
+      >
+      <div class="d-flex py-1">
+        <div class="col-12 text-right rounded p-2">
+          <components-cart
+            [data]="data"
+            (changes)="onCartChanges()"
+          ></components-cart>
+        </div>
+      </div>
+      <div class="d-flex justify-content-end mt-3">
+        <button mat-button class="mx-3" color="basic" (click)="cancel()">
+          {{'cancel'|_}}</button
+        ><button
+          mat-flat-button
+          color="accent"
+          (click)="getInvoice()"
+          [disabled]="data.length===0"
+        >
+          {{'pagePurchaseNextStep'|_}}
+        </button>
+      </div> </mat-step
+    ><mat-step
+      ><ng-template
+        *ngIf="stepper.selectedIndex === 1"
+        matStepLabel
+        class="text-wrap"
+        ><p class="small m-0">{{'invoice'|_}}</p></ng-template
+      >
+      <div class="d-flex py-3">
+        <div *ngIf="invoice" class="col-12 text-right rounded">
+          <components-invoice [invoice]="invoice"></components-invoice>
+        </div>
+      </div>
+
+      <div class="d-flex justify-content-end mt-3">
+        <button
+          class="me-3 ms-auto"
+          mat-button
+          color="warn"
+          (click)="stepper.previous()"
+        >
+          {{'pagePurchaseBackStep'|_}}
+        </button>
+        <button mat-button class="mx-3" color="basic" (click)="cancel()">
+          {{'cancel'|_}}</button
+        ><button
+          mat-flat-button
+          matStepperNext
+          color="accent"
+          (click)="goToBank()"
+        >
+          {{'order'|_}}
+        </button>
+      </div>
+    </mat-step>
+  </mat-horizontal-stepper>
+</div>

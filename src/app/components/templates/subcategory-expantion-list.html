@@ -1,0 +1,24 @@
+<mat-expansion-panel class="mat-elevation-z0 expantion">
+  <mat-expansion-panel-header style="height: 37px">
+    <mat-panel-title class="text-nowrap h6" style="font-size: 0.9rem">
+      {{subCategory.name}}
+    </mat-panel-title>
+  </mat-expansion-panel-header>
+  <mat-nav-list *ngIf="subCategory.sub_categories.length > 0">
+    <ng-template ngFor let-SubCate [ngForOf]="subCategory.sub_categories">
+      <components-subcategory-expantion-list
+        *ngIf="SubCate.sub_categories.length > 0 || SubCate.categories.length > 0"
+        [subCategory]="SubCate"
+        (close)="passOutputToParent()"
+      >
+      </components-subcategory-expantion-list>
+    </ng-template>
+  </mat-nav-list>
+  <mat-nav-list>
+    <ng-template ngFor let-SubCate [ngForOf]="subCategory.categories">
+      <a mat-button (click)="categoryOnClick(SubCate.name)">{{SubCate.name}}</a>
+      <!-- thinking there should be better way of breaking line but for now it works fine -->
+      <br />
+    </ng-template>
+  </mat-nav-list>
+</mat-expansion-panel>

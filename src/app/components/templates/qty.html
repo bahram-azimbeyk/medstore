@@ -1,0 +1,24 @@
+<button *ngIf="qty" class="btn btn-secondary" style="height: 25px; width: 25px">
+  <div class="d-flex justify-content-center">
+    <p class="h6 m-0">{{qty|anp}} x</p>
+  </div>
+</button>
+<mat-card *ngIf="control" class="shadow-none border border-primary p-0 my-3">
+  <div
+    class="d-flex justify-content-around align-items-center"
+    style="width: 150px"
+  >
+    <button mat-button type="button" (click)="inc()">
+      <img class="mat-icon" src="../../../assets/icons/add.svg" />
+    </button>
+    <p class="h4 m-0 text-center w-25">{{control.value | anp}}</p>
+    <button
+      mat-button
+      type="button"
+      [disabled]="control.value <= 1"
+      (click)="dec()"
+    >
+      <img class="mat-icon" src="../../../assets/icons/remove.svg" />
+    </button>
+  </div>
+</mat-card>

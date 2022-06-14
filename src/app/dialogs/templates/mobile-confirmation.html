@@ -1,0 +1,42 @@
+<div class="d-flex flex-column h-100">
+  <p mat-dialog-title class="h3 text-right">
+    {{'dialogMobileConfirmationTitle'|_}}
+  </p>
+  <div class="col container mt-5">
+    <form
+      class="d-flex flex-column justify-content-start h-100"
+      [formGroup]="codeForm"
+      (ngSubmit)="submit()"
+      novalidate
+    >
+      <mat-error *ngFor="let error of errors">{{error}}</mat-error>
+      <mat-form-field class="my-2">
+        <mat-label>{{'dialogMobileConfirmationCode'|_}}</mat-label>
+        <input
+          matInput
+          formControlName="confirm_code"
+          placeholder="{{'dialogMobileConfirmationCodePlaceholder'|_:{number: '12345' | anp} }}"
+          minlength="5"
+          maxlength="5"
+          required="true"
+        />
+        <mat-error *ngIf="confirm_code?.invalid">
+          {{formClientErrorService.getErrorMessage('confirm_code', codeForm)}}
+        </mat-error>
+      </mat-form-field>
+      <div
+        mat-dialog-actions
+        class="d-flex justify-content-between text-center mt-auto"
+      >
+        <div class="col-4">
+          <button mat-stroked-button (click)="onNoClick()">
+            {{'dialogCancel'|_}}
+          </button>
+        </div>
+        <div class="col-4">
+          <button mat-flat-button color="accent">{{'dialogOk'|_}}</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

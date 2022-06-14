@@ -1,0 +1,48 @@
+<button
+  mat-button
+  *ngIf="price>0 && !discounted"
+  class="price h-100"
+  color="warn"
+  [disableRipple]="true"
+>
+  <p *ngIf="!animated" class="h5 fw-bold d-inline m-0">{{price | anp:true}}</p>
+  <p *ngIf="animated" class="h5 fw-bold d-inline m-0">
+    {{curr_price | anp:true}}
+  </p>
+  <p class="fw-light d-inline">{{'componentPriceRials'|_}}</p>
+</button>
+<button mat-button *ngIf="price==-1" class="price h-100" [disableRipple]="true">
+  <p class="h6 fw-bold d-inline">{{'componentPriceInquiry'|_}}</p>
+</button>
+<div
+  *ngIf="discounted"
+  class="d-flex flex-column align-items-center justify-content-center"
+>
+  <button
+    mat-button
+    class="price h-100"
+    [disabled]="true"
+    [disableRipple]="true"
+  >
+    <p
+      *ngIf="!animated"
+      class="h5 fw-bold d-inline m-0 text-decoration-line-through"
+    >
+      {{price | anp:true}}
+    </p>
+    <p
+      *ngIf="animated"
+      class="h5 fw-bold d-inline m-0 text-decoration-line-through"
+    >
+      {{curr_price | anp:true}}
+    </p>
+    <p class="fw-light d-inline">{{'componentPriceRials'|_}}</p>
+  </button>
+  <!-- <components-discount [discount]="discountRate"></components-discount> -->
+  <!-- <div
+    class="d-flex justify-content-center align-items-center bg-dark text-white px-1 rounded h-75"
+  >
+    <p class="small m-0">{{discountRate|anp}} %</p>
+  </div> -->
+  <components-price class="col-12" [price]="discounted"></components-price>
+</div>

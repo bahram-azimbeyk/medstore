@@ -1,0 +1,34 @@
+<div class="container my-5">
+  <div class="py-2 d-flex justify-content-between">
+    <div>
+      <p class="h3 m-0">{{'pageTicketAllTicketsTitle'|_}}</p>
+    </div>
+    <div class="align-self-start">
+      <button mat-flat-button color="warn" (click)="newTicket()">
+        {{'pageTicketNewTicket'|_}}
+      </button>
+    </div>
+  </div>
+  <table mat-table [dataSource]="tickets" class="w-100">
+    <ng-container matColumnDef="ticket_type">
+      <th mat-header-cell *matHeaderCellDef>
+        {{'pageTicketTicketCategory'|_}}
+      </th>
+      <td mat-cell *matCellDef="let element">
+        {{element.ticket_type | titlecase}}
+      </td>
+    </ng-container>
+    <ng-container matColumnDef="date">
+      <th mat-header-cell *matHeaderCellDef>{{'date'|_}}</th>
+      <td mat-cell *matCellDef="let element">{{element.date|date:'medium'}}</td>
+    </ng-container>
+    <ng-container matColumnDef="ticket_status">
+      <th mat-header-cell *matHeaderCellDef>{{'status'|_}}</th>
+      <td mat-cell *matCellDef="let element">
+        {{element.ticket_status|titlecase}}
+      </td>
+    </ng-container>
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row;columns:displayedColumns;"></tr>
+  </table>
+</div>

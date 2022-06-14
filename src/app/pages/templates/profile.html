@@ -1,0 +1,245 @@
+<div *ngIf="data" class="container text-right">
+  <mat-tab-group
+    mat-stretch-tabs
+    mat-align-tabs="start"
+    animationDuration="0ms"
+    [(selectedIndex)]="selectedIndex"
+    (selectedTabChange)="onTabChange()"
+  >
+    <mat-tab label="اطلاعات کاربری">
+      <div class="container-fluid py-5">
+        <div class="py-2 d-flex justify-content-between">
+          <div>
+            <p class="h3 m-0">{{'pageProfilePersonalinfotitle'|_}}</p>
+          </div>
+          <div class="align-self-start">
+            <button
+              mat-flat-button
+              class="soft-blue"
+              color="background"
+              (click)="editProfile()"
+            >
+              <span>{{"edit"|_}}</span>
+              <img
+                class="mat-icon"
+                style="cursor: pointer"
+                src="../../../assets/icons/create.svg"
+              />
+            </button>
+          </div>
+        </div>
+        <div class="d-flex flex-wrap justify-content-center py-3">
+          <div class="col-12 col-sm-6 text-right">
+            <div class="p-2">
+              <p class="text-muted small">{{'pageProfileFullnamelbl'|_}}</p>
+              <p class="h5" i18n="@@pageprofile_fullname">
+                {{data.first_name || data.last_name ? (data.first_name + ' ' +
+                data.last_name): ci18n.transform('empty')}}
+              </p>
+            </div>
+          </div>
+          <div class="col-12 col-sm-6 text-right">
+            <div class="p-2">
+              <p class="text-muted small">{{'pageProfileEmaillbl'|_}}</p>
+              <div
+                class="
+                  d-flex
+                  flex-wrap
+                  justify-content-start
+                  align-content-center
+                "
+              >
+                <p
+                  class="col h5 m-0 pt-1"
+                  [class.text-danger]="!data.is_email_confirmed"
+                  i18n="@@pageprofile_email"
+                >
+                  {{data.user || ci18n.transform('empty')}}
+                </p>
+                <div class="position-relative d-inline-block">
+                  <div
+                    *ngIf="waiting"
+                    class="
+                      position-absolute
+                      d-flex
+                      align-items-center
+                      justify-content-center
+                    "
+                    style="top: 0; left: 0; bottom: 0; right: 0; z-index: 1"
+                  >
+                    <mat-progress-spinner
+                      color="accent"
+                      diameter="24"
+                      mode="indeterminate"
+                    ></mat-progress-spinner>
+                  </div>
+                  <button
+                    mat-flat-button
+                    *ngIf="data.user && !data.is_email_confirmed"
+                    class="btn-sm"
+                    color="accent"
+                    [disabled]="waiting"
+                    (click)="sendEmailConfirmRequest()"
+                  >
+                    <p>{{'pageProfileEmailverificationlbl'|_}}</p>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-12 col-sm-6 text-right">
+            <div class="p-2">
+              <p class="text-muted small">{{'pageProfilePostalcodelbl'|_}}</p>
+              <p class="h5" i18n="@@pageprofile_postalcode">
+                {{data.postal_code? (data.postal_code|anp) :
+                ci18n.transform('empty')}}
+              </p>
+            </div>
+          </div>
+          <div class="col-12 col-sm-6 text-right">
+            <div class="p-2">
+              <p class="text-muted small">{{'pageProfileMobilenumberlbl'|_}}</p>
+              <div
+                class="
+                  d-flex
+                  flex-wrap
+                  justify-content-start
+                  align-content-center
+                "
+              >
+                <p
+                  class="col h5 m-0 pt-1"
+                  [class.text-danger]="!data.is_mobile_confirmed"
+                >
+                  {{data.mobile_number? ('0'|anp) + (data.mobile_number|anp) :
+                  ci18n.transform('empty')}}
+                </p>
+                <div class="position-relative d-inline-block">
+                  <div
+                    *ngIf="waiting"
+                    class="
+                      position-absolute
+                      d-flex
+                      align-items-center
+                      justify-content-center
+                    "
+                    style="top: 0; left: 0; bottom: 0; right: 0; z-index: 1"
+                  >
+                    <mat-progress-spinner
+                      color="accent"
+                      diameter="24"
+                      mode="indeterminate"
+                    ></mat-progress-spinner>
+                  </div>
+                  <button
+                    mat-flat-button
+                    *ngIf="data.mobile_number && !data.is_mobile_confirmed"
+                    class="btn-sm"
+                    color="accent"
+                    (click)="sendMobileConfirmRequest()"
+                    [disabled]="waiting"
+                  >
+                    <p>{{'pageProfileMobilenumberverificationlbl'|_}}</p>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-12">
+            <div class="p-2">
+              <p class="text-muted small">{{'pageProfileAddresslbl'|_}}</p>
+              <p class="h5">{{data.address || ci18n.transform('empty')}}</p>
+            </div>
+            <button
+              *ngIf="nextUrl"
+              mat-flat-button
+              class="w-100"
+              color="accent"
+              (click)="onProfileComplete()"
+              [disabled]="purchaseLockDisabled()"
+            >
+              {{'pageProfilePurchaseLockBtn'|_}}
+            </button>
+          </div>
+        </div>
+        <mat-divider></mat-divider>
+        <div class="container-fluid py-5">
+          <div class="py-2 d-flex justify-content-between">
+            <div>
+              <p class="h3 m-0">{{'pageProfileChangepasswordlbl'|_}}</p>
+            </div>
+          </div>
+          <div class="py-3">
+            <form
+              class="d-flex flex-column"
+              [formGroup]="passwordForm"
+              (ngSubmit)="changePassword()"
+              novalidate
+            >
+              <mat-error *ngIf="error" class="mb-3">{{error}}</mat-error>
+              <mat-form-field class="px-3">
+                <mat-label>{{'pageProfileCurrentpasswordlbl'|_}}</mat-label>
+                <input
+                  matInput
+                  type="password"
+                  formControlName="password"
+                  minlength="8"
+                  required
+                  autocomplete="new-password"
+                />
+                <mat-error *ngIf="password?.errors"
+                  >{{formClientErrorService.getErrorMessage('password',passwordForm)}}
+                </mat-error>
+              </mat-form-field>
+              <mat-form-field class="mx-3">
+                <mat-label>{{'pageProfileNewpasswordlbl'|_}}</mat-label>
+                <input
+                  matInput
+                  type="password"
+                  formControlName="new_password"
+                  minlength="8"
+                  required
+                  autocomplete="new-password"
+                />
+                <mat-error *ngIf="new_password?.errors"
+                  >{{formClientErrorService.getErrorMessage('new_password',
+                  passwordForm)}}</mat-error
+                >
+              </mat-form-field>
+              <mat-form-field class="mx-3">
+                <mat-label>{{'pageProfileNewpasswordrepeatlbl'|_}}</mat-label>
+                <input
+                  matInput
+                  type="password"
+                  formControlName="repeat_password"
+                  minlength="8"
+                  required
+                  autocomplete="new-password"
+                  [errorStateMatcher]="matcher"
+                />
+                <mat-error
+                  >{{formClientErrorService.getErrorMessage('repeat_password',passwordForm)}}</mat-error
+                >
+              </mat-form-field>
+              <button
+                mat-flat-button
+                class="mx-3 align-self-end"
+                color="accent"
+              >
+                {{'pageProfileChangelbl'|_}}
+              </button>
+            </form>
+          </div>
+        </div>
+        <mat-divider></mat-divider>
+      </div>
+    </mat-tab>
+    <mat-tab label="{{'pageProfileTransactionslbl'|_}}">
+      <pages-transactions [self_user]="data"></pages-transactions>
+    </mat-tab>
+    <mat-tab label="{{'pageProfileOrderslbl'|_}}">
+      <pages-orders></pages-orders>
+    </mat-tab>
+    <!-- <mat-tab label="تیکت ها"><pages-tickets></pages-tickets></mat-tab> -->
+  </mat-tab-group>
+</div>

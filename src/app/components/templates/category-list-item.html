@@ -1,0 +1,18 @@
+<ng-container *ngIf="categories.sub_categories.length > 0; else leaf">
+  <ng-template ngFor let-sub_category [ngForOf]="categories.sub_categories">
+    <a mat-menu-item [matMenuTriggerFor]="menu">{{sub_category.name}}</a>
+    <mat-menu #menu="matMenu">
+      <components-category-list-item
+        [categories]="sub_category"
+      ></components-category-list-item>
+    </mat-menu>
+  </ng-template>
+</ng-container>
+<ng-template #leaf>
+  <a
+    mat-menu-item
+    *ngFor="let category of categories.categories"
+    href="/search?category={{category.name}}"
+    >{{category.name}}</a
+  >
+</ng-template>

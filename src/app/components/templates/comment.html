@@ -1,0 +1,110 @@
+<div>
+  <!-- new comment -->
+  <mat-card class="mb-5 p-4" style="direction: {{getDirection()}}">
+    <mat-card-title>
+      <p class="h3">{{'componentCommentNewComment'|_}}</p>
+    </mat-card-title>
+    <div *ngIf="isLoggedin; else anonymousUser">
+      <mat-card-content class="d-flex flex-column align-items-stretch">
+        <form
+          class="d-flex flex-column"
+          [formGroup]="commentForm"
+          (ngSubmit)="onRequest()"
+          novalidate
+        >
+          <mat-form-field appearance="standard" style="margin-left: 50%">
+            <mat-label>{{'componentCommentTitle'|_}}</mat-label>
+            <input matInput type="text" formControlName="title" required />
+          </mat-form-field>
+          <mat-form-field appearance="standard" class="">
+            <mat-label>{{'componentCommentText'|_}}</mat-label>
+            <textarea
+              matInput
+              formControlName="description"
+              required
+            ></textarea>
+          </mat-form-field>
+        </form>
+      </mat-card-content>
+
+      <div style="direction: ltr">
+        <span *ngFor="let score of scores">
+          <span
+            *ngIf="score <= formScore; else borderStar"
+            (click)="setScore(score)"
+            class="material-icons rating-star"
+          >
+            star
+          </span>
+          <ng-template #borderStar>
+            <span (click)="setScore(score)" class="material-icons rating-star">
+              star_border
+            </span>
+          </ng-template>
+        </span>
+      </div>
+
+      <div class="d-flex justify-content-right">
+        <button
+          mat-flat-button
+          class="mx-2"
+          color="accent"
+          (click)="onRequest()"
+        >
+          {{'componentCommentSend'|_}}
+        </button>
+      </div>
+    </div>
+    <ng-template #anonymousUser>
+      <mat-card-content class="d-flex flex-column align-items-stretch">
+        <p>{{'componentCommentSignInToComment'|_}}</p>
+      </mat-card-content>
+      <div class="d-flex justify-content-right">
+        <a mat-flat-button class="mx-2" color="accent" routerLink="/signin">
+          {{'login'|_}}
+        </a>
+      </div>
+    </ng-template>
+  </mat-card>
+
+  <!-- all comments -->
+  <mat-card
+    class="mb-2"
+    *ngFor="let comment of comments"
+    style="direction: {{getStringDirection(comment.title)}}"
+  >
+    <mat-card-header>
+      <mat-card-title
+        ><p class="h5 text-danger">{{comment.title}}</p></mat-card-title
+      >
+      <mat-card-subtitle class="mb-0">
+        <p class="mb-0" style="font-size: 0.75rem">
+          {{comment.created}}<span
+            class="material-icons mx-1"
+            style="font-size: 0.3rem"
+          >
+            fiber_manual_record
+          </span>
+          <span>{{comment.customer.full_name}}</span>
+        </p>
+      </mat-card-subtitle>
+    </mat-card-header>
+    <div class="mx-2" style="border-bottom: 1px solid rgb(148, 148, 148)"></div>
+    <mat-card-content class="mt-3">
+      <p class="h6 mb-2 mx-2">{{comment.description}}</p>
+    </mat-card-content>
+    <div style="direction: ltr">
+      <span *ngFor="let score of scores">
+        <span
+          *ngIf="score <= comment.score; else borderStar"
+          class="material-icons rate-star"
+        >
+          star
+        </span>
+        <ng-template #borderStar>
+          <span class="material-icons rate-star"> star_border </span>
+        </ng-template>
+      </span>
+    </div>
+  </mat-card>
+</div>

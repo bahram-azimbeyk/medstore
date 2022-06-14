@@ -1,0 +1,19 @@
+<mat-form-field style="width: 200px">
+  <input
+    type="text"
+    placeholder="{{'componentAutoCompleteInputPlaceholder'|_}}"
+    matInput
+    [formControl]="control"
+    [matAutocomplete]="auto"
+  />
+  <mat-autocomplete #auto="matAutocomplete">
+    <mat-option
+      *ngFor="let option of filteredOptions | async"
+      [value]="option"
+      (click)="select()"
+    >
+      <p class="my-auto" style="font-size: 0.7rem">{{option}}</p>
+    </mat-option>
+  </mat-autocomplete>
+</mat-form-field>
+<!-- <p class="text-light">انتخاب شما: {{option.value.selectedItem}}</p> -->
